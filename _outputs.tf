@@ -173,3 +173,7 @@ output "nat_gateway" {
 output "public_route_table_id" {
   value = aws_public_route_table_id.id
 }
+
+output "private_network_acl_id" {
+  value = aws_private_network_acl_id.id
+}
