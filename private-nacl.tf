@@ -39,7 +39,7 @@ resource "aws_network_acl_rule" "private_in_requester_ephemeral" {
   network_acl_id = var.private_network_acl_id
   rule_number    = 2000 + index(var.private_route, each.value)
   egress         = false
-  protocol       = "tcp"
+  protocol       = try(each.value.protocol, "tcp")
   rule_action    = "allow"
   cidr_block     = each.value.cidr
   from_port      = 1024
@@ -55,7 +55,7 @@ resource "aws_network_acl_rule" "private_out_requester_ephemeral" {
   network_acl_id = var.private_network_acl_id
   rule_number    = 2000 + index(var.private_route, each.value)
   egress         = true
-  protocol       = "tcp"
+  protocol       = try(each.value.protocol, "tcp")
   rule_action    = "allow"
   cidr_block     = each.value.cidr
   from_port      = 1024
