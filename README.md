@@ -53,7 +53,7 @@ module "transit_gateway" {
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.0 |
+| terraform | >= 0.13.0 |
 | aws | >= 4.4.0 |
 | random | >= 2.1.0 |
 | tls | >= 3.1.0 |
@@ -93,6 +93,7 @@ module "transit_gateway" {
 | transit\_gateway\_default\_route\_table\_association | Boolean whether the VPC Attachment should be associated with the EC2 Transit Gateway association default route table. This cannot be configured or perform drift detection with Resource Access Manager shared EC2 Transit Gateways. Default value: true. | `bool` | `true` | no |
 | transit\_gateway\_default\_route\_table\_propagation | Boolean whether the VPC Attachment should propagate routes with the EC2 Transit Gateway propagation default route table. This cannot be configured or perform drift detection with Resource Access Manager shared EC2 Transit Gateways. Default value: true. | `bool` | `true` | no |
 | transit\_gateway\_enabled | Enable or disable Transit Gateway | `bool` | n/a | yes |
+| vpc\_cidr | Identifier of the VPC CIDR. | `string` | n/a | yes |
 | vpc\_id | Identifier of EC2 VPC. | `string` | n/a | yes |
 
 ## Outputs
