@@ -88,6 +88,11 @@ variable "vpc_id" {
   description = "Identifier of EC2 VPC."
 }
 
+variable "vpc_cidr" {
+  type        = string
+  description = "Identifier of the VPC CIDR."
+}
+
 variable "private_route_table_id" {
   type        = string
   description = "Private Route Table Identifier"

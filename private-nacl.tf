@@ -1,7 +1,7 @@
 resource "aws_network_acl_rule" "private_in_requester_from_accepter" {
   for_each = {
     for inbound_port in local.private_inbound_ports : "${inbound_port.cidr}:${inbound_port.port}" => inbound_port
-    if try(var.attachment, false) == true
+    if try(var.attachment, false) == true && inbound_port.cidr != var.vpc_cidr
   }
 
   network_acl_id = var.private_network_acl_id
@@ -17,7 +17,7 @@ resource "aws_network_acl_rule" "private_in_requester_from_accepter" {
 resource "aws_network_acl_rule" "private_out_requester_to_accepter" {
   for_each = {
     for outbound_port in local.private_outbound_ports : "${outbound_port.cidr}:${outbound_port.port}" => outbound_port
-    if try(var.attachment, false) == true
+    if try(var.attachment, false) == true && outbound_port.cidr != var.vpc_cidr
   }
 
   network_acl_id = var.private_network_acl_id
