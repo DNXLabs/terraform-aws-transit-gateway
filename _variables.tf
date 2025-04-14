@@ -43,6 +43,12 @@ variable "dns_support" {
   description = "Whether DNS support is enabled. Valid values: disable, enable. Default value: enable."
 }
 
+variable "security_group_referencing_support" {
+  type        = string
+  default     = "disable"
+  description = "Whether Security Group Referencing Support is enabled. Valid values: disable, enable. Default value: disable."
+}
+
 variable "attachment" {
   type        = bool
   default     = false

@@ -1,12 +1,13 @@
 resource "aws_ec2_transit_gateway" "default" {
   count = var.transit_gateway_enabled ? 1 : 0
 
-  description                     = "${var.name}-transit-gateway"
-  amazon_side_asn                 = var.transit_gateway_asn
-  auto_accept_shared_attachments  = "enable"
-  default_route_table_association = var.default_route_table_association
-  default_route_table_propagation = var.default_route_table_propagation
-  dns_support                     = var.dns_support
+  description                        = "${var.name}-transit-gateway"
+  amazon_side_asn                    = var.transit_gateway_asn
+  auto_accept_shared_attachments     = "enable"
+  default_route_table_association    = var.default_route_table_association
+  default_route_table_propagation    = var.default_route_table_propagation
+  dns_support                        = var.dns_support
+  security_group_referencing_support = var.security_group_referencing_support
 
   tags = merge(
     var.tags,
@@ -20,10 +21,11 @@ resource "aws_ec2_transit_gateway" "default" {
 resource "aws_ec2_transit_gateway_vpc_attachment" "default" {
   count = try(var.attachment, false) ? 1 : 0
 
-  subnet_ids         = var.subnet_ids
-  transit_gateway_id = data.aws_ec2_transit_gateway.default[0].id
-  vpc_id             = var.vpc_id
-  dns_support        = var.dns_support
+  subnet_ids                         = var.subnet_ids
+  transit_gateway_id                 = data.aws_ec2_transit_gateway.default[0].id
+  vpc_id                             = var.vpc_id
+  dns_support                        = var.dns_support
+  security_group_referencing_support = var.security_group_referencing_support
 
   transit_gateway_default_route_table_association = true
   transit_gateway_default_route_table_propagation = true

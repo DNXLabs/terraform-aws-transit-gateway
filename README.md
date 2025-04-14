@@ -26,24 +26,25 @@ The following resources will be created:
 module "transit_gateway" {
   source = "git::https://github.com/DNXLabs/terraform-aws-transit-gateway.git?ref=1.0.0"
 
-  name                       = local.workspace.org_name
-  account_name               = local.workspace.account_name
-  transit_gateway_account_id = local.workspace.transit_gateway.attachment.transit_gateway_account_id
-  allowed_prefixes           = try(local.workspace.transit_gateway.allowed_prefixes, [])
-  dns_support                = try(local.workspace.transit_gateway.dns_support, "enable")
-  attachment                 = try(local.workspace.transit_gateway.attachment.enabled, false)
-  transit_gateway_enabled    = try(local.workspace.transit_gateway.enabled, false)
-  vpc_id                     = module.network[0].vpc_id
-  subnet_ids                 = module.network[0].private_subnet_ids
-  private_route_table_id     = module.network[0].private_route_table_id[0]
-  public_route_table_id      = module.network[0].public_route_table_id
-  private_network_acl_id     = module.network[0].private_nacl_id
-  public_network_acl_id      = module.network[0].public_nacl_id
-  dx_connection              = try(local.workspace.transit_gateway.dx_connection, [])
-  direct_connect_gateway_asn = try(local.workspace.transit_gateway.direct_connect_gateway_asn, "64512")
-  transit_gateway_asn        = try(local.workspace.transit_gateway.transit_gateway_asn, "64513")
-  public_route               = try(local.workspace.transit_gateway.attachment.public_route, [])
-  private_route              = try(local.workspace.transit_gateway.attachment.private_route, [])
+  name                               = local.workspace.org_name
+  account_name                       = local.workspace.account_name
+  transit_gateway_account_id         = local.workspace.transit_gateway.attachment.transit_gateway_account_id
+  allowed_prefixes                   = try(local.workspace.transit_gateway.allowed_prefixes, [])
+  dns_support                        = try(local.workspace.transit_gateway.dns_support, "enable")
+  security_group_referencing_support = try(local.workspace.transit_gateway.security_group_referencing_support, "disable")
+  attachment                         = try(local.workspace.transit_gateway.attachment.enabled, false)
+  transit_gateway_enabled            = try(local.workspace.transit_gateway.enabled, false)
+  vpc_id                             = module.network[0].vpc_id
+  subnet_ids                         = module.network[0].private_subnet_ids
+  private_route_table_id             = module.network[0].private_route_table_id[0]
+  public_route_table_id              = module.network[0].public_route_table_id
+  private_network_acl_id             = module.network[0].private_nacl_id
+  public_network_acl_id              = module.network[0].public_nacl_id
+  dx_connection                      = try(local.workspace.transit_gateway.dx_connection, [])
+  direct_connect_gateway_asn         = try(local.workspace.transit_gateway.direct_connect_gateway_asn, "64512")
+  transit_gateway_asn                = try(local.workspace.transit_gateway.transit_gateway_asn, "64513")
+  public_route                       = try(local.workspace.transit_gateway.attachment.public_route, [])
+  private_route                      = try(local.workspace.transit_gateway.attachment.private_route, [])
 }
 ```
 
@@ -75,6 +76,7 @@ module "transit_gateway" {
 | default\_route\_table\_propagation | Whether resource attachments automatically propagate routes to the default propagation route table. Valid values: disable, enable. Default value: enable. | `string` | `"enable"` | no |
 | direct\_connect\_gateway\_asn | The ASN to be configured on the Amazon side of the connection. The ASN must be in the private range of 64,512 to 65,534 or 4,200,000,000 to 4,294,967,294. | `number` | n/a | yes |
 | dns\_support | Whether DNS support is enabled. Valid values: disable, enable. Default value: enable. | `string` | `"enable"` | no |
+| security\_group\_referencing\_support | Whether Security Group Referencing Support is enabled. Valid values: disable, enable. Default value: disable. | `string` | `"disable"` | no |
 | dx\_connection | The name of the connection to retrieve. | `list(any)` | `[]` | no |
 | name | Name prefix for the resources of this stack | `string` | n/a | yes |
 | private\_network\_acl\_id | Private Network ACL ID | `string` | n/a | yes |
