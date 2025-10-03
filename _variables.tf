@@ -183,3 +183,9 @@ variable "flow_logs_retention" {
   default     = 365
   description = "Retention in days for Transit Gateway Flow Logs CloudWatch Log Group"
 }
+
+variable "auto_accept_shared_attachments" {
+  type        = string
+  default     = "disable"
+  description = "Whether resource attachment requests are automatically accepted."
+}
