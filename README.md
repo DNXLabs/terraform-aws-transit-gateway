@@ -72,7 +72,7 @@ module "transit_gateway" {
 | account\_name | Name of the AWS account. | `string` | n/a | yes |
 | allowed\_prefixes | VPC prefixes (CIDRs) to advertise to the Direct Connect gateway. Defaults to the CIDR block of the VPC associated with the Virtual Gateway. To enable drift detection, must be configured. | `list(string)` | `[]` | no |
 | attachment | Create VPC Attachment to Transit Gateway | `bool` | `false` | no |
-| auto\_accept\_shared\_attachments | Whether resource attachment requests are automatically accepted. | `string` | `"disable"` | no |
+| auto\_accept\_shared\_attachments | Whether resource attachment requests are automatically accepted. | `string` | `"enable"` | no |
 | default\_route\_table\_association | Whether resource attachments are automatically associated with the default association route table. Valid values: disable, enable. Default value: enable. | `string` | `"enable"` | no |
 | default\_route\_table\_propagation | Whether resource attachments automatically propagate routes to the default propagation route table. Valid values: disable, enable. Default value: enable. | `string` | `"enable"` | no |
 | direct\_connect\_gateway\_asn | The ASN to be configured on the Amazon side of the connection. The ASN must be in the private range of 64,512 to 65,534 or 4,200,000,000 to 4,294,967,294. | `number` | n/a | yes |
