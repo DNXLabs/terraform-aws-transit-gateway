@@ -186,6 +186,6 @@ variable "flow_logs_retention" {
 
 variable "auto_accept_shared_attachments" {
   type        = string
-  default     = "disable"
+  default     = "enable"
   description = "Whether resource attachment requests are automatically accepted."
 }
