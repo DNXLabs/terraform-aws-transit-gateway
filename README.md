@@ -77,7 +77,7 @@ module "transit_gateway" {
 | direct\_connect\_gateway\_asn | The ASN to be configured on the Amazon side of the connection. The ASN must be in the private range of 64,512 to 65,534 or 4,200,000,000 to 4,294,967,294. | `number` | n/a | yes |
 | dns\_support | Whether DNS support is enabled. Valid values: disable, enable. Default value: enable. | `string` | `"enable"` | no |
 | dx\_connection | The name of the connection to retrieve. | `list(any)` | `[]` | no |
-| flow\_logs | Enable or disable Transit Gateway Flow Logs | `bool` | `true` | no |
+| flow\_logs | Enable or disable Transit Gateway Flow Logs | `bool` | `false` | no |
 | flow\_logs\_retention | Retention in days for Transit Gateway Flow Logs CloudWatch Log Group | `number` | `365` | no |
 | name | Name prefix for the resources of this stack | `string` | n/a | yes |
 | private\_network\_acl\_id | Private Network ACL ID | `string` | n/a | yes |
