@@ -174,7 +174,7 @@ variable "ram_organization_association" {
 
 variable "flow_logs" {
   type        = bool
-  default     = true
+  default     = false
   description = "Enable or disable Transit Gateway Flow Logs"
 }
 
