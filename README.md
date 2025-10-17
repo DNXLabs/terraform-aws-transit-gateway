@@ -76,8 +76,9 @@ module "transit_gateway" {
 | default\_route\_table\_propagation | Whether resource attachments automatically propagate routes to the default propagation route table. Valid values: disable, enable. Default value: enable. | `string` | `"enable"` | no |
 | direct\_connect\_gateway\_asn | The ASN to be configured on the Amazon side of the connection. The ASN must be in the private range of 64,512 to 65,534 or 4,200,000,000 to 4,294,967,294. | `number` | n/a | yes |
 | dns\_support | Whether DNS support is enabled. Valid values: disable, enable. Default value: enable. | `string` | `"enable"` | no |
-| security\_group\_referencing\_support | Whether Security Group Referencing Support is enabled. Valid values: disable, enable. Default value: disable. | `string` | `"disable"` | no |
 | dx\_connection | The name of the connection to retrieve. | `list(any)` | `[]` | no |
+| flow\_logs | Enable or disable Transit Gateway Flow Logs | `bool` | `false` | no |
+| flow\_logs\_retention | Retention in days for Transit Gateway Flow Logs CloudWatch Log Group | `number` | `365` | no |
 | name | Name prefix for the resources of this stack | `string` | n/a | yes |
 | private\_network\_acl\_id | Private Network ACL ID | `string` | n/a | yes |
 | private\_route | Private Destination CIDR blocks for NACL definition | <pre>list(object({<br>    cidr                          = string<br>    protocol                      = optional(string, "tcp")<br>    nacl_inbound_ports            = list(number)<br>    nacl_outbound_ports           = list(number)<br>    nacl_inbound_ephemeral_ports  = optional(bool, false)<br>    nacl_outbound_ephemeral_ports = optional(bool, false)<br>  }))</pre> | n/a | yes |
@@ -89,6 +90,7 @@ module "transit_gateway" {
 | secure\_network\_acl\_id | Secure Network ACL ID | `string` | n/a | yes |
 | secure\_route | Secure Destination CIDR blocks for NACL definition | <pre>list(object({<br>    cidr                          = string<br>    protocol                      = optional(string, "tcp")<br>    nacl_inbound_ports            = list(number)<br>    nacl_outbound_ports           = list(number)<br>    nacl_inbound_ephemeral_ports  = optional(bool, false)<br>    nacl_outbound_ephemeral_ports = optional(bool, false)<br>  }))</pre> | n/a | yes |
 | secure\_route\_table\_id | Secure Route Table Identifier | `string` | n/a | yes |
+| security\_group\_referencing\_support | Whether Security Group Referencing Support is enabled. Valid values: disable, enable. Default value: disable. | `string` | `"disable"` | no |
 | subnet\_ids | Identifiers of EC2 Subnets. | `list(any)` | `[]` | no |
 | tags | Extra tags to attach to resources | `map(string)` | `{}` | no |
 | transit\_gateway\_account\_id | Identifier of the AWS account that owns the EC2 Transit Gateway. | `string` | n/a | yes |

@@ -171,3 +171,15 @@ variable "ram_organization_association" {
   default     = true
   description = "Controls if a resource share of the transit gateway to AWS Organizations should be created."
 }
+
+variable "flow_logs" {
+  type        = bool
+  default     = false
+  description = "Enable or disable Transit Gateway Flow Logs"
+}
+
+variable "flow_logs_retention" {
+  type        = number
+  default     = 365
+  description = "Retention in days for Transit Gateway Flow Logs CloudWatch Log Group"
+}
