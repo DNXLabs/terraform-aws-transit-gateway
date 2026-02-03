@@ -3,6 +3,12 @@ variable "transit_gateway_enabled" {
   description = "Enable or disable Transit Gateway"
 }
 
+variable "transit_gateway_id" {
+  type        = string
+  default     = null
+  description = "Existing Transit Gateway ID to use. If provided, no new TGW will be created regardless of transit_gateway_enabled value."
+}
+
 variable "name" {
   type        = string
   description = "Name prefix for the resources of this stack"

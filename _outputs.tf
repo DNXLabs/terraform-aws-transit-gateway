@@ -1,5 +1,5 @@
 output "transit_gateway_id" {
-  value = var.transit_gateway_enabled ? aws_ec2_transit_gateway.default.*.id : null
+  value       = var.transit_gateway_id != null ? var.transit_gateway_id : (var.transit_gateway_enabled ? try(aws_ec2_transit_gateway.default[0].id, null) : null)
   description = "Transit Gateway ID"
 }
 
