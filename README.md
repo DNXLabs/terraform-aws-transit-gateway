@@ -64,7 +64,7 @@ module "transit_gateway" {
   
   # Provide existing Transit Gateway ID
   transit_gateway_id      = "tgw-0123456789abcdef0"
-  transit_gateway_enabled = true  # Keep true to enable RAM sharing
+  transit_gateway_enabled = true  # RAM sharing enabled automatically when transit_gateway_id is set
   
   # VPC attachment configuration
   attachment             = true
