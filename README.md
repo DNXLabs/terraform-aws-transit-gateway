@@ -22,6 +22,8 @@ The following resources will be created:
 
 ## Usage
 
+### Creating a New Transit Gateway
+
 ```hcl
 module "transit_gateway" {
   source = "git::https://github.com/DNXLabs/terraform-aws-transit-gateway.git?ref=1.0.0"
@@ -45,6 +47,37 @@ module "transit_gateway" {
   transit_gateway_asn                = try(local.workspace.transit_gateway.transit_gateway_asn, "64513")
   public_route                       = try(local.workspace.transit_gateway.attachment.public_route, [])
   private_route                      = try(local.workspace.transit_gateway.attachment.private_route, [])
+}
+```
+
+### Using an Existing Transit Gateway
+
+If you have an existing Transit Gateway (created via AWS Console or CLI), you can manage RAM sharing and VPC attachments using this module:
+
+```hcl
+module "transit_gateway" {
+  source = "git::https://github.com/DNXLabs/terraform-aws-transit-gateway.git?ref=1.0.0"
+
+  name                       = local.workspace.org_name
+  account_name               = local.workspace.account_name
+  transit_gateway_account_id = local.workspace.transit_gateway.attachment.transit_gateway_account_id
+  
+  # Provide existing Transit Gateway ID
+  transit_gateway_id      = "tgw-0123456789abcdef0"
+  transit_gateway_enabled = true  # RAM sharing enabled automatically when transit_gateway_id is set
+  
+  # VPC attachment configuration
+  attachment             = true
+  vpc_id                 = module.network[0].vpc_id
+  subnet_ids             = module.network[0].private_subnet_ids
+  private_route_table_id = module.network[0].private_route_table_id[0]
+  public_route_table_id  = module.network[0].public_route_table_id
+  private_network_acl_id = module.network[0].private_nacl_id
+  public_network_acl_id  = module.network[0].public_nacl_id
+  
+  # Route configuration
+  public_route  = try(local.workspace.transit_gateway.attachment.public_route, [])
+  private_route = try(local.workspace.transit_gateway.attachment.private_route, [])
 }
 ```
 
@@ -98,6 +131,7 @@ module "transit_gateway" {
 | transit\_gateway\_default\_route\_table\_association | Boolean whether the VPC Attachment should be associated with the EC2 Transit Gateway association default route table. This cannot be configured or perform drift detection with Resource Access Manager shared EC2 Transit Gateways. Default value: true. | `bool` | `true` | no |
 | transit\_gateway\_default\_route\_table\_propagation | Boolean whether the VPC Attachment should propagate routes with the EC2 Transit Gateway propagation default route table. This cannot be configured or perform drift detection with Resource Access Manager shared EC2 Transit Gateways. Default value: true. | `bool` | `true` | no |
 | transit\_gateway\_enabled | Enable or disable Transit Gateway | `bool` | n/a | yes |
+| transit\_gateway\_id | Existing Transit Gateway ID to use. If provided, no new TGW will be created regardless of transit\_gateway\_enabled value. | `string` | `null` | no |
 | vpc\_id | Identifier of EC2 VPC. | `string` | n/a | yes |
 
 ## Outputs

@@ -1,4 +1,11 @@
 locals {
+  # Use provided TGW ID, or created TGW ID, or lookup via data source
+  transit_gateway_id = (
+    var.transit_gateway_id != null ? var.transit_gateway_id :
+    var.transit_gateway_enabled ? aws_ec2_transit_gateway.default[0].id :
+    data.aws_ec2_transit_gateway.default[0].id
+  )
+
   private_inbound_ports = distinct(flatten([
     for each_cidr in var.private_route : [
       for each_port in each_cidr.nacl_inbound_ports : {

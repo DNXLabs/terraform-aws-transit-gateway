@@ -1,5 +1,5 @@
 resource "aws_ec2_transit_gateway" "default" {
-  count = var.transit_gateway_enabled ? 1 : 0
+  count = var.transit_gateway_id == null && var.transit_gateway_enabled ? 1 : 0
 
   description                        = "${var.name}-transit-gateway"
   amazon_side_asn                    = var.transit_gateway_asn
@@ -22,7 +22,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "default" {
   count = try(var.attachment, false) ? 1 : 0
 
   subnet_ids                         = var.subnet_ids
-  transit_gateway_id                 = data.aws_ec2_transit_gateway.default[0].id
+  transit_gateway_id                 = local.transit_gateway_id
   vpc_id                             = var.vpc_id
   dns_support                        = var.dns_support
   security_group_referencing_support = var.security_group_referencing_support
@@ -40,7 +40,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "default" {
 }
 
 resource "aws_ec2_transit_gateway_route" "blackhole" {
-  count = var.transit_gateway_enabled ? 1 : 0
+  count = var.transit_gateway_id == null && var.transit_gateway_enabled ? 1 : 0
 
   destination_cidr_block         = "0.0.0.0/0"
   blackhole                      = length(var.public_route) > 0 ? false : true
