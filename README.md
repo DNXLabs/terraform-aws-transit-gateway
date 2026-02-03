@@ -131,7 +131,7 @@ module "transit_gateway" {
 | transit\_gateway\_default\_route\_table\_association | Boolean whether the VPC Attachment should be associated with the EC2 Transit Gateway association default route table. This cannot be configured or perform drift detection with Resource Access Manager shared EC2 Transit Gateways. Default value: true. | `bool` | `true` | no |
 | transit\_gateway\_default\_route\_table\_propagation | Boolean whether the VPC Attachment should propagate routes with the EC2 Transit Gateway propagation default route table. This cannot be configured or perform drift detection with Resource Access Manager shared EC2 Transit Gateways. Default value: true. | `bool` | `true` | no |
 | transit\_gateway\_enabled | Enable or disable Transit Gateway | `bool` | n/a | yes |
-| transit\_gateway\_id | Existing Transit Gateway ID to use. If provided, no new TGW will be created regardless of transit_gateway_enabled value. | `string` | `null` | no |
+| transit\_gateway\_id | Existing Transit Gateway ID to use. If provided, no new TGW will be created regardless of transit\_gateway\_enabled value. | `string` | `null` | no |
 | vpc\_id | Identifier of EC2 VPC. | `string` | n/a | yes |
 
 ## Outputs
